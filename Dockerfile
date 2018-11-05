@@ -7,7 +7,7 @@ RUN apt-get -y dist-upgrade
 RUN apt-get -y install python3-pip
 
 #nginx uwgsi install
-RUN apt -y install nginx
+RUN apt -y install nginx supervisor
 RUN pip3 install uwsgi
 
 # copy requirements
@@ -19,13 +19,12 @@ RUN pip3 install -r /tmp/requirements.txt
 COPY . /srv/project/
 WORKDIR /srv/project/
 
-# settings module change to production
+# settings module change to production, language from ascii to utf-8
 ENV DJANGO_SETTINGS_MODULE config.settings.production
-
+ENV LANG=C.UTF-8
 #process run
 WORKDIR /srv/project/ec2-deploy/app/
 CMD python3 manage.py collectstatic --noinput
-
 #delete default nginx
 RUN rm -rf /etc/nginx/sites-available/*
 RUN rm -rf /etc/nginx/sites-enabled/*
@@ -33,5 +32,9 @@ RUN rm -rf /etc/nginx/sites-enabled/*
 # project copy
 RUN cp -f /srv/project/.config/app.nginx /etc/nginx/sites-available
 RUN ln -sf /etc/nginx/sites-available/app.nginx /etc/nginx/sites-enabled/app.nginx
-#uwsgi
-CMD uwsgi --http :8000 --chdir /srv/project/app --wsgi config.wsgi
+
+
+#supervisor conf copy
+RUN cp -f /srv/project/.config/supervisord.conf /etc/supervisor/conf.d/
+#supervisor run
+CMD supervisord -n

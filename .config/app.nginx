@@ -1,5 +1,4 @@
 # /etc/nginx/sites-available
-
 server {
     # listen on port 80
     listen 80;
