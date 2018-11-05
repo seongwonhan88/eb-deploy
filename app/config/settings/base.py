@@ -18,8 +18,6 @@ MEDIA_URL = '/media/'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 secrets = json.load(open(os.path.join(SECRETS_DIR, 'base.json')))
-FACEBOOK_APP_ID = secrets['FACEBOOK_APP_ID']
-FACEBOOK_APP_SECRET = secrets['FACEBOOK_APP_SECRET']
 SECRET_KEY = 'secrets[SECRET_KEY]'
 
 # SECURITY WARNING: don't run with debug turned on in production!
