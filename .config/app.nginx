@@ -21,6 +21,6 @@ server {
         alias /srv/project/.static/;
     }
     location /media/ {
-        alias /srv/proejct/.media/;
+        alias /srv/project/.media/;
     }
 }
