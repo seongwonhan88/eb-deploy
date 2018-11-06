@@ -1,10 +1,14 @@
-FROM ubuntu:18.04
+FROM python:3.6.7-slim
 MAINTAINER seongwonhan88@gmail.com
+
+# settings module change to production, language from ascii to utf-8
+ENV LANG=C.UTF-8
 
 #package upgrade
 RUN apt-get -y update
 RUN apt-get -y dist-upgrade
-RUN apt-get -y install python3-pip
+RUN apt-get -y install gcc nginx supervisor
+RUN pip3 install uwsgi
 
 #nginx uwgsi install
 RUN apt -y install nginx supervisor
@@ -19,9 +23,7 @@ RUN pip3 install -r /tmp/requirements.txt
 COPY . /srv/project/
 WORKDIR /srv/project/
 
-# settings module change to production, language from ascii to utf-8
-ENV DJANGO_SETTINGS_MODULE config.settings.production
-ENV LANG=C.UTF-8
+
 #process run
 WORKDIR /srv/project/ec2-deploy/app/
 CMD python3 manage.py collectstatic --noinput
