@@ -7,8 +7,10 @@ ENV LANG=C.UTF-8
 #package upgrade
 RUN apt-get -y update
 RUN apt-get -y dist-upgrade
-RUN apt-get -y install gcc nginx supervisor
-RUN pip3 install uwsgi
+RUN apt-get -y install gcc nginx supervisor && \
+    pip3 install uwsgi && \
+    apt -y remove gcc && \
+    apt -y autoremove
 
 # copy requirements
 # if requirements has not changed, pip3 will not install

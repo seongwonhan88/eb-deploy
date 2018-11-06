@@ -1,4 +1,4 @@
-FROM eb-docker:base
+FROM seongwonhan88/eb-docker:base
 ENV DJANGO_SETTINGS_MODULE config.settings.production
 
 
