@@ -10,13 +10,10 @@ RUN apt-get -y dist-upgrade
 RUN apt-get -y install gcc nginx supervisor
 RUN pip3 install uwsgi
 
-#nginx uwgsi install
-RUN apt -y install nginx supervisor
-RUN pip3 install uwsgi
 
 # copy requirements
 # if requirements has not changed, pip3 will not install
-COPY requirements.txt /tmp/
+COPY requirements_production.txt /tmp/requirements.txt
 RUN pip3 install -r /tmp/requirements.txt
 
 #copy entire source code
