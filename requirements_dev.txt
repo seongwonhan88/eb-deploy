@@ -1,2 +1,2 @@
 awsebcli<1.5
-ipython<7.2
+ipython<7.17
